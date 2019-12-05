@@ -26,7 +26,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
-    projects: '**/*Tests.csproj;**/*.csproj'
+    projects: '!(**/*Test*.csproj);**/*.csproj'
 
 - task: PowerShell@2
   inputs:
