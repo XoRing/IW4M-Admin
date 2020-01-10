@@ -71,7 +71,7 @@
 
                         <tr class="server-row" data-toggle="modal" data-target="#serverModalCenter"
                             data-ip="{{server.ip}}" data-port="{{server.port}}">
-                            <td data-hostname="{{server.hostname}}" class="server-hostname">{{server.hostname}}</td>
+                            <td data-hostname="{{server.hostname | regex_replace('\^([0-9]+|:)', '')}}" class="server-hostname">{{server.hostname | regex_replace('\^([0-9]+|:)', '')}}</td>
                             <td data-map="{{server.map}} " class="server-map">{{server.map}}</td>
                             <td data-clientnum="{{server.clientnum}}" data-maxclientnum="{{server.maxclientnum}}"
                                 class="server-clientnum">

@@ -98,6 +98,9 @@
     <Compile Include="master\schema\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="master\util\filters.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="master\__init__.py" />
     <Compile Include="master\views.py" />
   </ItemGroup>
@@ -106,6 +109,7 @@
     <Folder Include="master\context\" />
     <Folder Include="master\models\" />
     <Folder Include="master\config\" />
+    <Folder Include="master\util\" />
     <Folder Include="master\schema\" />
     <Folder Include="Master\resources\" />
     <Folder Include="master\static\" />

@@ -15,5 +15,6 @@ api = Api(app)
 ctx = Base()
 #config = json.load(open('./master/config/master.json'))
 
+from .util import filters
 import master.routes
 import master.views

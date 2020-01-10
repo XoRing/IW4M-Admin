@@ -15,9 +15,9 @@ class Base():
         self.scheduler.start()
         self.scheduler.add_job(
             func=self._remove_staleinstances,
-            trigger=IntervalTrigger(seconds=60),
+            trigger=IntervalTrigger(seconds=300),
             id='stale_instance_remover',
-            name='Remove stale instances if no heartbeat in 60 seconds',
+            name='Remove stale instances if no heartbeat in 5 minutes',
             replace_existing=True
         )
         self.scheduler.add_job(

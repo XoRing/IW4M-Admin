@@ -19,7 +19,7 @@ class ServerSchema(Schema):
     )
     game = fields.String(
         required=True,
-        validate=validate.Length(1, 5, 'invalid game name')
+        validate=validate.Length(-1, 8, 'invalid game name')
     )
     hostname = fields.String(
         required=True,
@@ -35,7 +35,7 @@ class ServerSchema(Schema):
     )
     map = fields.String(
         required=True,
-        validate=validate.Length(0, 64, 'invalid map name')
+        validate=validate.Length(0, 128, 'invalid map name')
     )
     gametype = fields.String(
         required=True,
