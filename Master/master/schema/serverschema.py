@@ -4,44 +4,44 @@ from master.models.servermodel import ServerModel
 class ServerSchema(Schema):
     id = fields.Int(
         required=True,
-        validate=validate.Range(0, 25525525525565535, 'invalid id')
+        validate=validate.Range(min=0, max=25525525525565535, error='invalid id')
     )
     ip = fields.Str(
         required=True
     )
     port = fields.Int(
         required=True,
-        validate=validate.Range(1, 65535, 'invalid port')
+        validate=validate.Range(min=1, max=65535, error='invalid port')
     )
     version = fields.String(
         required=False,
-        validate=validate.Length(0, 128, 'invalid server version')
+        validate=validate.Length(min=0, max=128, error='invalid server version')
     )
     game = fields.String(
         required=True,
-        validate=validate.Length(-1, 8, 'invalid game name')
+        validate=validate.Length(min=-1, max=8, error='invalid game name')
     )
     hostname = fields.String(
         required=True,
-        validate=validate.Length(1, 128, 'invalid hostname')
+        validate=validate.Length(min=1, max=128, error='invalid hostname')
     )
     clientnum = fields.Int(
         required=True,
-        validate=validate.Range(0, 128, 'invalid clientnum')
+        validate=validate.Range(min=0, max=128, error='invalid clientnum')
     )
     maxclientnum = fields.Int(
         required=True,
-        validate=validate.Range(1, 128, 'invalid maxclientnum')
+        validate=validate.Range(min=1, max=128, error='invalid maxclientnum')
     )
     map = fields.String(
         required=True,
-        validate=validate.Length(0, 128, 'invalid map name')
+        validate=validate.Length(min=0, max=128, error='invalid map name')
     )
     gametype = fields.String(
         required=True,
-        validate=validate.Length(1, 16, 'invalid gametype')
+        validate=validate.Length(min=1, max=16, error='invalid gametype')
     )
 
     @post_load
-    def make_instance(self, data):
+    def make_instance(self, data, **kwargs):
         return ServerModel(**data)

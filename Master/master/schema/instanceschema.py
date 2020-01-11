@@ -6,24 +6,24 @@ class InstanceSchema(Schema):
     id = fields.String(
         required=True
     )
-    version = fields.Float(
+    version = fields.String(
         required=True,
-        validate=validate.Range(1.0, 10.0, 'invalid version number')
+        validate=validate.Length(min=7, max=16, error='invalid version number')
     )
     servers = fields.Nested(
         ServerSchema,
         many=True,
-        validate=validate.Length(0, 32, 'invalid server count')
+        validate=validate.Length(min=0, max=32, error='invalid server count')
     )
     uptime = fields.Int(
         required=True,
-        validate=validate.Range(0, 2147483647, 'invalid uptime')
+        validate=validate.Range(min=0, max=2147483647, error='invalid uptime')
     )
     last_heartbeat = fields.Int(
         required=False
     )
 
     @post_load
-    def make_instance(self, data):
+    def make_instance(self, data, **kwargs):
         return InstanceModel(**data)
 

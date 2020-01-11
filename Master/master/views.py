@@ -28,7 +28,7 @@ def home(start):
 def servers():
     servers = defaultdict(list)
     if len(ctx.instance_list.values()) > 0:
-        ungrouped_servers = [server for instance  in  ctx.instance_list.values() for server in instance.servers]
+        ungrouped_servers = [server for instance in ctx.instance_list.values() for server in instance.servers]
         for server in ungrouped_servers:
             servers[server.game].append(server)
     return render_template('serverlist.html',
