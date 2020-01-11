@@ -44,6 +44,7 @@ class Instance(Resource):
                     server['version'] = 'Unknown'
             instance = InstanceSchema().load(request.json)
         except ValidationError as err:
+            print(err.messages)
             return {'message' : err.messages }, 400
         ctx.add_instance(instance)
         return { 'message' : 'instance added successfully' }, 200

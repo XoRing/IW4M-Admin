@@ -10,7 +10,7 @@ from master.resources.server import Server
 
 api.add_resource(Null, '/null')
 api.add_resource(Instance, '/instance/', '/instance/<string:id>')
-api.add_resource(Version, '/version')
+api.add_resource(Version, '/version', '/version/<int:api_version>')
 api.add_resource(Authenticate, '/authenticate')
 api.add_resource(HistoryGraph, '/history/', '/history/<int:history_count>')
 api.add_resource(Localization, '/localization/', '/localization/<string:language_tag>')

@@ -6,9 +6,7 @@ class InstanceSchema(Schema):
     id = fields.String(
         required=True
     )
-    version = fields.String(
-        required=True,
-        validate=validate.Length(min=7, max=16, error='invalid version number')
+    version = fields.Inferred(
     )
     servers = fields.Nested(
         ServerSchema,

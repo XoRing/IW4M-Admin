@@ -118,6 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="master\config\master.json" />
+    <Content Include="master\config\master.old.json" />
     <Content Include="master\templates\serverlist.html" />
     <None Include="Release.pubxml" />
     <Content Include="requirements.txt" />
