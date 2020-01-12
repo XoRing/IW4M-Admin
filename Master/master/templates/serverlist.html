@@ -34,7 +34,6 @@
                 <div class="h5" id="server_socket"></div>
             </div>
             <div class="modal-footer">
-                <button id="connect_button" type="button" class="btn btn-dark">Connect</button>
                 <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -103,11 +102,10 @@
         $('.server-row').off('click');
         $('.server-row').on('click', function (e) {
             $('#serverModalTitle').text($(this).find('.server-hostname').text());
-            $('#server_socket').text(`/connect ${$(this).data('ip')}:${$(this).data('port')}`);
+            $('#server_socket').text(`connect ${$(this).data('ip')}:${$(this).data('port')}`);
         });
 
         $('#connect_button').off('click');
-        $('#connect_button').on('click', (e) => alert('soon...'));
     });
 </script>
     {% endblock %}

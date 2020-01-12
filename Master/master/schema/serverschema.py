@@ -23,7 +23,7 @@ class ServerSchema(Schema):
     )
     hostname = fields.String(
         required=True,
-        validate=validate.Length(min=1, max=128, error='invalid hostname')
+        validate=validate.Length(min=1, max=256, error='invalid hostname')
     )
     clientnum = fields.Int(
         required=True,

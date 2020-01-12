@@ -18,7 +18,7 @@ class Instance(Resource):
                 instance = ctx.get_instance(id)
                 return InstanceSchema().dump(instance)
             except KeyError:
-                return {'message' : 'instance not found'}, 404
+                return { 'message' : 'instance not found' }, 404
 
     @jwt_required
     def put(self, id):
@@ -44,7 +44,7 @@ class Instance(Resource):
                     server['version'] = 'Unknown'
             instance = InstanceSchema().load(request.json)
         except ValidationError as err:
-            print(err.messages)
+            print('[instance::post] {msg}'.format(msg=err.messages))
             return {'message' : err.messages }, 400
         ctx.add_instance(instance)
         return { 'message' : 'instance added successfully' }, 200
