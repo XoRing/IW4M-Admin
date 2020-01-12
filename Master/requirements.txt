@@ -24,3 +24,5 @@ timeago==1.0.8
 tzlocal==2.0.0
 urllib3==1.25.7
 Werkzeug==0.16.0
+jsonpickle==1.2
+netaddr==0.7.19

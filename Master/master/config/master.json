@@ -1,4 +1,5 @@
 {
     "current-version-stable": "2.2.1.0",
-    "current-version-prerelease": "2.3.1.0"
+    "current-version-prerelease": "2.3.1.0",
+    "jwt-secret": "my-development-secret-key"
 }
