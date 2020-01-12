@@ -1,14 +1,17 @@
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.interval import IntervalTrigger
 from master.context.history import History
-
 from master.schema.instanceschema import InstanceSchema
+import jsonpickle
 
 import time
+import os
+import json
 
 class Base():
     def __init__(self):
-        self.history = History()
+        self.history = self._load_persistence()
+        self._update_history_count(True)
         self.instance_list = {}
         self.token_list = {}
         self.scheduler = BackgroundScheduler()
@@ -27,17 +30,27 @@ class Base():
         name='update client and instance count every 30 seconds',
         replace_existing=True
         )
+        self.scheduler.add_job(
+        func=self._persist,
+        trigger=IntervalTrigger(seconds=15),
+        id='persist history',
+        name='persists the history to disk',
+        replace_existing=True
+        )
 
-    def _update_history_count(self):
-        servers = [instance.servers for instance in self.instance_list.values()]
-        servers = [inner for outer in servers for inner in outer]
-        client_num = 0
-        # force it being a number
-        for server in servers:
-            client_num += server.clientnum
-        self.history.add_client_history(client_num)
-        self.history.add_instance_history(len(self.instance_list))
-        self.history.add_server_history(len(servers))
+    def _update_history_count(self, fill_empty = False):
+        if fill_empty:
+            self.history.fill_empty_history()
+        else:
+            servers = [instance.servers for instance in self.instance_list.values()]
+            servers = [inner for outer in servers for inner in outer]
+            client_num = 0
+            # force it being a number
+            for server in servers:
+                client_num += server.clientnum
+            self.history.add_client_history(client_num)
+            self.history.add_instance_history(len(self.instance_list))
+            self.history.add_server_history(len(servers))
 
     def _remove_staleinstances(self):
         for key, value in list(self.instance_list.items()):
@@ -87,3 +100,18 @@ class Base():
             return self.token_list[instance_id]
         except KeyError:
             return False
+
+    def _persist(self):
+        if not os.path.exists('./master/persistence'):
+            os.makedirs('./master/persistence')
+        with open('./master/persistence/history.json', 'w') as out_json:
+            history_json = jsonpickle.encode(self.history)
+            out_json.write(history_json)#/
+
+    def _load_persistence(self):
+        if os.path.exists('./master/persistence/history.json'):
+            with open('./master/persistence/history.json', 'r') as in_json:
+                history_json = in_json.read()
+                if len(history_json) > 0:
+                    return jsonpickle.decode(history_json)
+        return History()

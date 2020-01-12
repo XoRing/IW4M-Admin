@@ -10,14 +10,13 @@ from master.context.history import History
 from collections import defaultdict
 
 @app.route('/', defaults={'start': 0})
-@app.route('/<start>')
+@app.route('/<int:start>')
 def home(start):
     _history_graph = HistoryGraph().get(start)
 
     return render_template('index.html',
         title='API Overview',
         history_graph = _history_graph[0]['message'],
-        data_points = _history_graph[0]['data_points'],
         instance_count = _history_graph[0]['instance_count'],
         client_count = _history_graph[0]['client_count'],
         server_count = _history_graph[0]['server_count'],

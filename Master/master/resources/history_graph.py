@@ -34,16 +34,15 @@ class HistoryGraph(Resource):
             if len(instance_count) > 0:
                 graph.x_labels = [timeago.format(instance_count[0])]
 
-            instance_counts = [history['count'] for history in ctx.history.instance_history[start_index::interval]]
-            client_counts = [history['count'] for history in ctx.history.client_history[start_index::interval]]
-            server_counts = [history['count'] for history in ctx.history.server_history[start_index::interval]]
+            instance_counts = [{ 'value': int(history['count']), 'label': timeago.format(history['time']) } for history in ctx.history.instance_history[start_index::interval]]
+            client_counts = [{ 'value': int(history['count']), 'label': timeago.format(history['time']) } for history in ctx.history.client_history[start_index::interval]]
+            server_counts = [{ 'value': int(history['count']), 'label': timeago.format(history['time']) } for history in ctx.history.server_history[start_index::interval]]
             previous_zoom_point = 0 if start_index == total_entries else max(0, start_index - ceil((len(ctx.history.instance_history) - start_index)))
             next_zoom_point = start_index + ceil((len(ctx.history.instance_history) - start_index) / zoom_increment_factor)
 
             graph.add('Client Count', client_counts)
             graph.add('Instance Count', instance_counts)
-            return { 'message' :  graph.render().replace("<title>Pygal</title>", ""), 
-                     'data_points' : len(instance_count),
+            return { 'message' :  graph.render().replace("<title>Pygal</title>", ""),
                      'instance_count' : 0 if len(instance_counts) is 0 else instance_counts[-1],
                      'client_count' : 0 if len(client_counts) is 0 else client_counts[-1],
                      'server_count' : 0 if len(server_counts) is 0 else server_counts[-1],
