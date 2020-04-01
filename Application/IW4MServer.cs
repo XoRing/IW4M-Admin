@@ -1096,7 +1096,7 @@ namespace IW4MAdmin
 #if !DEBUG
             else
             {
-                string formattedKick = string.Format(RconParser.Configuration.CommandPrefixes.Kick, Target.ClientNumber, $"{loc["SERVER_KICK_TEXT"]} - ^5{Reason}^7");
+                string formattedKick = string.Format(RconParser.Configuration.CommandPrefixes.Kick, Target.ClientNumber, $"{loc["SERVER_KICK_TEXT"]} - ^7{Reason}^1");
                 await Target.CurrentServer.ExecuteCommandAsync(formattedKick);
             }
 #endif
@@ -1143,7 +1143,7 @@ namespace IW4MAdmin
 #if !DEBUG
             else
             {
-                string formattedKick = String.Format(RconParser.Configuration.CommandPrefixes.Kick, Target.ClientNumber, $"^7{loc["SERVER_TB_TEXT"]}- ^5{Reason}");
+                string formattedKick = String.Format(RconParser.Configuration.CommandPrefixes.Kick, Target.ClientNumber, $"^7{loc["SERVER_TB_TEXT"]}- ^3{Reason}");
                 await Target.CurrentServer.ExecuteCommandAsync(formattedKick);
             }
 #else
